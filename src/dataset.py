@@ -34,3 +34,11 @@ def carregar_pasta(
             caminhos = caminhos[:max_per_class]
 
         print(f"Carregando {len(caminhos)} imagens da classe {nome_classe}...")
+
+        for caminho in caminhos:
+            try:
+                imagem = carregar_imagem_cinza(caminho, img_size)
+                imagens.append(vetorizar_imagem(imagem))
+                rotulos.append(indice_classe)
+            except Exception as erro:
+                print(f"Aviso: erro ao carregar {caminho}: {erro}")
