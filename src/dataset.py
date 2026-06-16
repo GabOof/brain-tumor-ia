@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 import numpy as np
+from sklearn.model_selection import train_test_split
 
 from features import carregar_imagem_cinza, vetorizar_imagem
 
@@ -45,6 +46,10 @@ def carregar_pasta(
             except Exception as erro:
                 print(f"Aviso: erro ao carregar {caminho}: {erro}")
 
+    x = np.array(imagens, dtype=np.float32)
+    y = np.array(rotulos, dtype=np.int64)
+    return x, y, classes_ordenadas
+
 def carregar_dataset(
     data_dir: str = "data",
     img_size: int = 64,
@@ -61,3 +66,28 @@ def carregar_dataset(
             "As pastas data/Training e data/Testing não foram encontradas. "
             "Confira se o dataset foi baixado e extraído corretamente."
         )
+
+    print("Carregando treino...")
+    x_train_total, y_train_total, classes_treino = carregar_pasta(
+        treino_dir, img_size=img_size, max_per_class=max_per_class
+    )
+
+    print("Carregando teste...")
+    x_test, y_test, classes_teste = carregar_pasta(
+        teste_dir, img_size=img_size, max_per_class=max_per_class
+    )
+
+    if classes_treino != classes_teste:
+        print("Aviso: as classes de treino e teste não estão exatamente na mesma ordem.")
+
+    x_train, x_val, y_train, y_val = train_test_split(
+        x_train_total,
+        y_train_total,
+        test_size=validacao,
+        random_state=seed,
+        stratify=y_train_total,
+    )
+
+    print(f"Treino: {x_train.shape} | Validação: {x_val.shape} | Teste: {x_test.shape}")
+
+    return x_train, x_val, x_test, y_train, y_val, y_test, classes_treino
