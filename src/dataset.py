@@ -23,3 +23,14 @@ def carregar_pasta(
         )
 
     print(f"Classes em {pasta_base.name}: {classes_ordenadas}")
+
+    for indice_classe, nome_classe in enumerate(classes_ordenadas):
+        pasta_classe = pasta_base / nome_classe
+        caminhos = sorted(
+            [p for p in pasta_classe.iterdir() if p.suffix.lower() in EXTENSOES_VALIDAS]
+        )
+
+        if max_per_class is not None:
+            caminhos = caminhos[:max_per_class]
+
+        print(f"Carregando {len(caminhos)} imagens da classe {nome_classe}...")
