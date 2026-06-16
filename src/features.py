@@ -9,6 +9,5 @@ def carregar_imagem_cinza(caminho: Path, img_size: int) -> np.ndarray:
     array = np.asarray(imagem, dtype=np.float32) / 255.0
     return array
 
-def vetorizar_imagem():
-    # TODO: Implementar função para vetorizar imagem
-    pass
+def vetorizar_imagem(imagem: np.ndarray) -> np.ndarray:
+    return imagem.reshape(-1)
