@@ -3,6 +3,8 @@ from typing import List, Optional, Tuple
 
 import numpy as np
 
+from features import carregar_imagem_cinza, vetorizar_imagem
+
 CLASSES = ["glioma", "meningioma", "notumor", "pituitary"]
 EXTENSOES_VALIDAS = {".jpg", ".jpeg", ".png", ".bmp"}
 
@@ -42,3 +44,20 @@ def carregar_pasta(
                 rotulos.append(indice_classe)
             except Exception as erro:
                 print(f"Aviso: erro ao carregar {caminho}: {erro}")
+
+def carregar_dataset(
+    data_dir: str = "data",
+    img_size: int = 64,
+    max_per_class: Optional[int] = None,
+    validacao: float = 0.15,
+    seed: int = 42,
+):
+    base = Path(data_dir)
+    treino_dir = base / "Training"
+    teste_dir = base / "Testing"
+
+    if not treino_dir.exists() or not teste_dir.exists():
+        raise FileNotFoundError(
+            "As pastas data/Training e data/Testing não foram encontradas. "
+            "Confira se o dataset foi baixado e extraído corretamente."
+        )
