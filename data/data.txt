@@ -1,0 +1,15 @@
+Entre no Kaggle e faça o download do dataset "Brain Tumor MRI Dataset". Extraia o conteúdo e coloque a pasta data na raiz do projeto.
+
+A pasta data deve ficar parecida com:
+
+data/
+├── Training/
+│   ├── glioma/
+│   ├── meningioma/
+│   ├── notumor/
+│   └── pituitary/
+└── Testing/
+    ├── glioma/
+    ├── meningioma/
+    ├── notumor/
+    └── pituitary/
