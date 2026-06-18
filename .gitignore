@@ -1,4 +1,6 @@
-data
 .venv
-resultados
 __pycache__
+Testing
+Training
+resultados/*
+!resultados/resultados.txt
