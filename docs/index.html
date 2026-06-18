@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Brain Tumor IA</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <main class="container">
+            <section class="hero">
+                <div>
+                    <p class="tag">Trabalho II de Inteligência Artificial</p>
+                    <h1>Detecção de Tumores Cerebrais</h1>
+                </div>
+                <div class="status-card">
+                    <span class="status-dot" id="statusDot"></span>
+                    <strong id="statusText">Aguardando execução</strong>
+                    <small id="statusDetail">Use o botão abaixo para rodar os experimentos.</small>
+                </div>
+            </section>
+            <section class="panel controls">
+                <div class="field">
+                    <label for="maxPerClass">Limite por classe</label>
+                    <input
+                        id="maxPerClass"
+                        type="number"
+                        min="1"
+                        placeholder="Vazio = dataset completo"
+                    />
+                    <small>Use 10 para teste rápido ou deixe vazio para a execução final.</small>
+                </div>
+                <div class="buttons">
+                    <button id="btnExecutar" class="primary">Rodar experimentos</button>
+                    <button id="btnAtualizar" class="secondary">Atualizar resultados</button>
+                </div>
+            </section>
+            <section class="grid-cards" id="cardsResumo">
+                <article class="metric-card">
+                    <span>Melhor experimento</span>
+                    <strong id="melhorExperimento">-</strong>
+                </article>
+                <article class="metric-card">
+                    <span>Melhor acurácia</span>
+                    <strong id="melhorAcuracia">-</strong>
+                </article>
+                <article class="metric-card">
+                    <span>Melhor F1 macro</span>
+                    <strong id="melhorF1">-</strong>
+                </article>
+            </section>
+            <section class="panel">
+                <div class="section-header">
+                    <div>
+                        <h2>Resultados dos experimentos</h2>
+                        <p>
+                            Tabela gerada a partir de
+                            <code>resultados/resultados_experimentos.csv</code>.
+                        </p>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Experimento</th>
+                                <th>Técnica</th>
+                                <th>Acurácia</th>
+                                <th>Precisão</th>
+                                <th>Recall</th>
+                                <th>F1 macro</th>
+                                <th>Tempo (s)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaResultados">
+                            <tr>
+                                <td colspan="7" class="empty">Nenhum resultado carregado.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="panel">
+                <div class="section-header">
+                    <div>
+                        <h2>Saída do terminal</h2>
+                        <p>Mostra o retorno do script Python após clicar em rodar.</p>
+                    </div>
+                </div>
+                <pre id="terminalOutput">Nenhuma execução realizada nesta sessão.</pre>
+            </section>
+        </main>
+
+        <script src="app.js"></script>
+    </body>
+</html>
