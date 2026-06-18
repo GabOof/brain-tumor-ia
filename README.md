@@ -3,6 +3,7 @@
 Projeto prático da disciplina de Inteligência Artificial — IFMG Campus Ouro Branco.
 
 ## Tema
+
 Classificação de imagens de ressonância magnética cerebral em quatro classes:
 
 - glioma
@@ -13,6 +14,7 @@ Classificação de imagens de ressonância magnética cerebral em quatro classes
 O dataset utilizado é o **Brain Tumor MRI Dataset**, disponível no Kaggle.
 
 ## Técnicas testadas
+
 Foram implementados 8 experimentos, envolvendo duas técnicas principais:
 
 1. SVM, com variações de kernel e parâmetro C.
@@ -24,25 +26,6 @@ Foram implementados 8 experimentos, envolvendo duas técnicas principais:
 - Precisão macro
 - Recall macro
 - F1-score macro
-
-## Estrutura do projeto
-
-```text
-brain_tumor_ia_projeto/
-├── data/                         # dataset baixado do Kaggle, não sobe para o GitHub
-├── resultados/                   # métricas e relatórios gerados
-├── src/
-│   ├── dataset.py                # carregamento e pré-processamento das imagens
-│   ├── features.py               # funções auxiliares para imagens
-│   └── treinar_experimentos.py   # execução dos 8 experimentos
-├── relatorio/
-│   └── relatorio_modelo.md       # modelo de relatório para preencher
-├── video/
-│   └── roteiro_video.md          # roteiro sugerido para gravação
-├── requirements.txt
-├── .gitignore
-└── README.md
-```
 
 ## Como rodar
 
@@ -62,27 +45,7 @@ pip install -r requirements.txt
 
 ### 3. Baixar o dataset
 
-Entre no Kaggle, crie um token de API em **Account > Create New API Token** e coloque o arquivo `kaggle.json` em:
-
-Linux/WSL:
-
-```bash
-mkdir -p ~/.kaggle
-mv kaggle.json ~/.kaggle/
-chmod 600 ~/.kaggle/kaggle.json
-```
-
-Windows:
-
-```text
-C:\Users\SEU_USUARIO\.kaggle\kaggle.json
-```
-
-Depois, rode:
-
-```bash
-kaggle datasets download -d masoudnickparvar/brain-tumor-mri-dataset -p data --unzip
-```
+Entre no Kaggle e faça o download do dataset "Brain Tumor MRI Dataset". Extraia o conteúdo e coloque a pasta `data` na raiz do projeto.
 
 A pasta `data` deve ficar parecida com:
 
@@ -119,10 +82,6 @@ Os arquivos serão salvos em `resultados/`:
 - `resultados_experimentos.csv`
 - relatórios individuais de classificação
 - matrizes de confusão
-
-## Observação
-
-Os resultados podem variar conforme o computador, divisão dos dados, quantidade de épocas e versão das bibliotecas.
 
 ## Tela web local
 
