@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Classificação de Tumores Cerebrais</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <main class="container">
+            <h1>Detecção de Tumores Cerebrais</h1>
+
+            <section class="card">
+                <h2>Executar experimentos</h2>
+
+                <label for="maxPerClass">Limite de imagens por classe:</label>
+
+                <input
+                    type="number"
+                    id="maxPerClass"
+                    min="1"
+                    placeholder="Deixe vazio para usar tudo"
+                />
+                <div class="botoes">
+                    <button id="btnExecutar">Rodar experimentos</button>
+                    <button id="btnAtualizar">Atualizar tabela</button>
+                </div>
+
+                <p id="mensagem">Aguardando execução.</p>
+            </section>
+            <section class="card">
+                <h2>Resultados</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Experimento</th>
+                            <th>Técnica</th>
+                            <th>Acurácia</th>
+                            <th>Precisão</th>
+                            <th>Recall</th>
+                            <th>F1-score</th>
+                            <th>Tempo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaResultados">
+                        <tr>
+                            <td colspan="7">Nenhum resultado carregado.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section class="card">
+                <h2>Saída do programa</h2>
+                <pre id="saidaPrograma">Nenhuma execução realizada.</pre>
+            </section>
+        </main>
+
+        <script type="module" src="app.js"></script>
+    </body>
+</html>
