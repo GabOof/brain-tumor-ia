@@ -1,5 +1,3 @@
 Os arquivos serão salvos em resultados/:
 
 - resultados_experimentos.csv
-- relatórios individuais de classificação
-- matrizes de confusão
