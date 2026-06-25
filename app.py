@@ -1,103 +1,74 @@
 import csv
 import subprocess
 import sys
-import threading
 from pathlib import Path
 
 from flask import Flask, jsonify, render_template, request
 
 BASE_DIR = Path(__file__).resolve().parent
-SCRIPT_TREINO = BASE_DIR / "src" / "treinar_experimentos.py"
+SCRIPT_TREINO = BASE_DIR / "main.py"
 CSV_RESULTADOS = BASE_DIR / "resultados" / "resultados_experimentos.csv"
 
 app = Flask(
     __name__,
-    template_folder="docs",
-    static_folder="docs",
+    template_folder=str(BASE_DIR),
+    static_folder=str(BASE_DIR),
     static_url_path="",
 )
 
-execucao_lock = threading.Lock()
-
 
 @app.route("/")
-def index():
+def pagina_inicial():
     return render_template("index.html")
 
 
 @app.route("/api/resultados")
-def api_resultados():
+def buscar_resultados():
     if not CSV_RESULTADOS.exists():
-        return jsonify(
-            {
-                "existe": False,
-                "mensagem": "Nenhum resultado encontrado. Execute os experimentos primeiro.",
-                "resultados": [],
-            }
-        )
+        return jsonify({"ok": False, "mensagem": "Nenhum resultado encontrado.", "resultados": []})
+
+    resultados = []
 
     with open(CSV_RESULTADOS, newline="", encoding="utf-8") as arquivo:
         leitor = csv.DictReader(arquivo)
-        resultados = list(leitor)
+
+        for linha in leitor:
+            resultados.append(linha)
 
     return jsonify(
-        {
-            "existe": True,
-            "mensagem": "Resultados carregados com sucesso.",
-            "resultados": resultados,
-        }
+        {"ok": True, "mensagem": "Resultados carregados com sucesso.", "resultados": resultados}
     )
 
 
 @app.route("/api/executar", methods=["POST"])
-def api_executar():
-    if not execucao_lock.acquire(blocking=False):
+def executar_experimentos():
+    dados = request.get_json() or {}
+
+    limite = str(dados.get("max_per_class", "")).strip()
+
+    comando = [sys.executable, str(SCRIPT_TREINO)]
+
+    if limite:
+        if not limite.isdigit():
+            return jsonify({"ok": False, "mensagem": "O limite deve ser um número inteiro."})
+
+        comando.extend(["--max-per-class", limite])
+
+    processo = subprocess.run(comando, cwd=BASE_DIR, capture_output=True, text=True)
+
+    if processo.returncode == 0:
         return jsonify(
             {
-                "ok": False,
-                "mensagem": "Já existe uma execução em andamento. Aguarde finalizar.",
-            }
-        ), 409
-
-    try:
-        dados = request.get_json(silent=True) or {}
-        max_per_class = str(dados.get("max_per_class", "")).strip()
-
-        comando = [sys.executable, str(SCRIPT_TREINO)]
-
-        if max_per_class:
-            if not max_per_class.isdigit() or int(max_per_class) <= 0:
-                return jsonify(
-                    {
-                        "ok": False,
-                        "mensagem": "O campo max_per_class deve ser um número inteiro positivo.",
-                    }
-                ), 400
-
-            comando.extend(["--max-per-class", max_per_class])
-
-        processo = subprocess.run(
-            comando,
-            cwd=BASE_DIR,
-            capture_output=True,
-            text=True,
-        )
-
-        return jsonify(
-            {
-                "ok": processo.returncode == 0,
-                "codigo_retorno": processo.returncode,
-                "mensagem": "Execução finalizada."
-                if processo.returncode == 0
-                else "A execução terminou com erro.",
-                "stdout": processo.stdout,
-                "stderr": processo.stderr,
+                "ok": True,
+                "mensagem": "Experimentos executados com sucesso.",
+                "saida": processo.stdout,
             }
         )
 
-    finally:
-        execucao_lock.release()
+    return jsonify(
+        {"ok": False, "mensagem": "Erro ao executar os experimentos.", "saida": processo.stderr}
+    )
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=5000)
+    app.run(debug=True)
