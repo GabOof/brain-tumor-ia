@@ -1,3 +1,4 @@
+/* Estilo geral da página */
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -5,22 +6,26 @@ body {
     color: #1f2933;
 }
 
+/* Área principal centralizada */
 .container {
     width: 90%;
     max-width: 1100px;
     margin: 30px auto;
 }
 
+/* Título principal */
 h1 {
     color: #2f4f2f;
     margin-bottom: 5px;
 }
 
+/* Texto de descrição */
 .descricao {
     color: #555;
     margin-bottom: 25px;
 }
 
+/* Blocos visuais de conteúdo */
 .card {
     background-color: white;
     border: 1px solid #ddd6c8;
@@ -29,12 +34,14 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* Rótulos dos campos */
 label {
     display: block;
     font-weight: bold;
     margin-bottom: 8px;
 }
 
+/* Campos de entrada */
 input {
     padding: 10px;
     width: 250px;
@@ -43,10 +50,12 @@ input {
     border-radius: 6px;
 }
 
+/* Espaçamento dos botões */
 .botoes {
     margin-top: 15px;
 }
 
+/* Botões principais */
 button {
     padding: 10px 16px;
     border: none;
@@ -58,31 +67,37 @@ button {
     margin-right: 8px;
 }
 
+/* Efeito ao passar o mouse */
 button:hover {
     background-color: #2f4f2f;
 }
 
+/* Estado desabilitado dos botões */
 button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
+/* Mensagem de status */
 #mensagem {
     margin-top: 15px;
     font-weight: bold;
     color: #3f5f3f;
 }
 
+/* Tabela de resultados */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
 }
 
+/* Cabeçalho da tabela */
 th {
     background-color: #e8e1d2;
 }
 
+/* Células da tabela */
 th,
 td {
     border: 1px solid #ddd6c8;
@@ -90,11 +105,13 @@ td {
     text-align: left;
 }
 
+/* Destaque para o melhor experimento */
 tr.melhor {
     background-color: #e2f0df;
     font-weight: bold;
 }
 
+/* Área de saída do programa */
 pre {
     background-color: #1f2933;
     color: #d7ffd8;
